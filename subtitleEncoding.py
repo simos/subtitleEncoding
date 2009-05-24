@@ -32,9 +32,14 @@ except ImportError, err:
         sys.exit(1)
 
 class SubtitleEncoding:
-	def __init__(self):
-		print "Hello, World"
+	def __init__(self, filename):
+		urlread = lambda url: urllib.urlopen(url).read()
+		fileread = lambda file: open(file).read()
+
+		print 'We are detecting the encoding of', filename
+		print chardet.detect(fileread(filename))
 
 
 if __name__ == '__main__':
-	a = SubtitleEncoding()
+	a = SubtitleEncoding('sample-utf8.srt')
+	b = SubtitleEncoding('sample-iso8859-7.srt')
