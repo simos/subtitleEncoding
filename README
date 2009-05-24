@@ -1,0 +1,8 @@
+This script aims to detect the encoding of a subtitle file and autoconvert
+it to UTF-8.
+
+The aims are:
+1. Ability to provide hints to the script (for example, shortlist of encodings
+that can be deduced from the LANG variable).
+2. Ability to test that the guessed encoding is actually valid.
+3. Produce as output a UTF-8 version of the input file.
