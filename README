@@ -6,3 +6,9 @@ The aims are:
 that can be deduced from the LANG variable).
 2. Ability to test that the guessed encoding is actually valid.
 3. Produce as output a UTF-8 version of the input file.
+
+TODO items: 
+* Use Python commands instead of invoking external applications (as much as possible).
+* Take hints from http://gomputor.wordpress.com/2008/09/22/convert-a-file-in-utf-8-or-any-encoding-with-python/
+* Windows-1253 and iso-8859-7, how can we distinguish?
+
