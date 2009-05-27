@@ -36,9 +36,32 @@ class SubtitleEncoding:
 		urlread = lambda url: urllib.urlopen(url).read()
 		fileread = lambda file: open(file).read()
 
-		print 'We are detecting the encoding of', filename
-		print chardet.detect(fileread(filename))
-
+		chenc=chardet.detect(fileread(filename))
+		print '\nWe are detecting the encoding of', filename
+		print "The encoding of "+filename+" is "+chenc['encoding']+" with confidence:",chenc['confidence']
+		if chenc['encoding'] == 'utf-8':
+			print "The encoding of the file is already utf-8"
+		elif chenc['encoding'] != '':
+			print "Trying to convert '%s' from %s to utf-8" %(filename, chenc['encoding'])
+			command= "iconv -f "+ chenc['encoding']+ " -t utf-8 "+ filename+ " -o "+ filename+"-utf-8"
+			print "Trying to pass the following command to the terminal... good luck!\n"+command
+			if os.system(str(command))==0:
+				print "Seems we have made it... Well done!"
+				print "Do you want to remove the old file with "+chenc['encoding']+" encoding? (y|n)"
+				ask=raw_input("")
+				if ask=='y':
+					print "Deleting "+filename+" and replacing with the new utf-8 one!"
+					command="rm "+filename
+					os.system(command)
+					command="mv "+filename+"-utf-8 "+filename
+					os.system(command)
+				else:
+					print "OK... All done! Your utf-8 file is named '"+filename+"-utf-8'... Exiting now..."
+					#quiting...
+			else:
+				print "Error... file could not be converted to utf-8"
+			
+			
 
 if __name__ == '__main__':
 	a = SubtitleEncoding('sample-utf8.srt')
